@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(cpp-template)
+project(crtp-benchmark)
 
 # Additional options.
 set(ENABLE_CMD_WINDOW
@@ -78,7 +78,7 @@ endif()
 # -------------------------------------
 
 # Build the main app.
-set(SOURCE_FILES "src/main.cpp" "src/example.cpp")
+set(SOURCE_FILES "src/main.cpp")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_compile_features(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_FEATURES})
 

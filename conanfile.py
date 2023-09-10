@@ -6,21 +6,21 @@ from conan.tools.microsoft import is_msvc
 from conan.tools.microsoft.toolchain import msvs_toolset
 
 
-class CppTemplate(ConanFile):
-    name = "CppTemplate"
+class CrtpBenchmark(ConanFile):
+    name = "CRTP benchmark"
     version = "1.0"
     package_type = "application"
 
     license = "MIT"
     author = "Arnor Nolen"
-    url = "https://github.com/arnor-nolen"
-    description = "C++ template."
+    url = "https://github.com/arnor-nolen/crtp-benchmark"
+    description = "Polymorphism vs CRTP benchmark."
     topics = ("C++", "Conan", "Template")
 
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = "CMakeLists.txt", "src/*"
 
-    default_options = {"fmt/*:shared": True}
+    default_options = {}
 
     def requirements(self):
         self.requires("fmt/10.1.1")
