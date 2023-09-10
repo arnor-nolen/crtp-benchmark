@@ -1,0 +1,11 @@
+---
+Checks: >
+  *,
+  -fuchsia-*,
+  -google-readability-todo,
+  -google-runtime-references,
+  -llvmlibc-*,
+  -altera-unroll-loops
+WarningsAsErrors: ""
+HeaderFilterRegex: ""
+FormatStyle: none
