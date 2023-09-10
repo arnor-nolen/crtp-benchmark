@@ -4,49 +4,15 @@
 #include <memory>
 #include <variant>
 
-#include <crtp_interface.hpp>
-#include <interface.hpp>
+#include <crtp_counter.hpp>
+#include <lambda_counter.hpp>
+#include <poly_counter.hpp>
 
 namespace {
 constexpr size_t number_of_loops = 40000;
 } // namespace
 
-// Polymorphic class.
-class Counter : public Interface {
-  public:
-    explicit Counter(int counter) : m_counter{counter} {};
-    void inc(int n) noexcept override { m_counter += n; };
-    [[nodiscard]] auto getCounter() const noexcept -> int override {
-        return m_counter;
-    };
-
-  private:
-    int m_counter{0};
-};
-
-// CRTP class.
-class CrtpCounter : public CrtpInterface<CrtpCounter> {
-  public:
-    explicit CrtpCounter(int counter) : m_counter{counter} {};
-    void inc(int n) noexcept { m_counter += n; };
-    [[nodiscard]] auto getCounter() const noexcept -> int { return m_counter; };
-
-  private:
-    int m_counter{0};
-};
-
-// No inheritance class.
-class LambdaCounter {
-  public:
-    explicit LambdaCounter(int counter) : m_counter{counter} {};
-    void inc(int n) noexcept { m_counter += n; };
-    [[nodiscard]] auto getCounter() const noexcept -> int { return m_counter; };
-
-  private:
-    int m_counter{0};
-};
-
-void test(Interface *counter) {
+void test(PolyInterface *counter) {
     for (auto i = 0u; i < number_of_loops; ++i) {
         for (auto j = 0u; j < i; ++j) {
             counter->inc(static_cast<int>(j));
@@ -91,7 +57,7 @@ void benchmark(const std::unique_ptr<T> &counter, F function,
 
 auto main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) -> int {
 
-    auto counter = std::make_unique<Counter>(0);
+    auto counter = std::make_unique<PolyCounter>(0);
     benchmark(counter, test, "Polymorphism");
     fmt::print("Counter value: {}.\n\n", counter->getCounter());
 

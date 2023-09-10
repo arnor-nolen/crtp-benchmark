@@ -4,15 +4,8 @@
 template <typename T>
 class CrtpInterface {
   public:
-    ~CrtpInterface() = default;
-
-    CrtpInterface(const CrtpInterface &) = delete;
-    CrtpInterface(CrtpInterface &&) noexcept = delete;
-
-    auto operator=(const CrtpInterface &) -> CrtpInterface & = delete;
-    auto operator=(CrtpInterface &&) noexcept -> CrtpInterface & = delete;
-
     void inc(int n) noexcept { underlying().inc(n); }
+
     [[nodiscard]] auto getCounter() const noexcept -> int {
         return underlying().getCounter();
     }
