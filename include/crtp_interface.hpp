@@ -6,14 +6,18 @@ class CrtpInterface {
   public:
     void inc(int n) noexcept { underlying().inc(n); }
 
-    [[nodiscard]] auto getCounter() const noexcept -> int {
+    [[nodiscard]]
+    auto getCounter() const noexcept -> int {
         return underlying().getCounter();
     }
 
-    [[nodiscard]] auto underlying() noexcept -> T & {
+    [[nodiscard]]
+    auto underlying() noexcept -> T & {
         return static_cast<T &>(*this);
     }
-    [[nodiscard]] auto underlying() const noexcept -> const T & {
+
+    [[nodiscard]]
+    auto underlying() const noexcept -> const T & {
         return static_cast<const T &>(*this);
     }
 

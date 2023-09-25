@@ -13,7 +13,9 @@ class PolyInterface {
     auto operator=(PolyInterface &&) noexcept -> PolyInterface & = delete;
 
     virtual void inc(int n) noexcept = 0;
-    [[nodiscard]] virtual auto getCounter() const noexcept -> int = 0;
+
+    [[nodiscard]]
+    virtual auto getCounter() const noexcept -> int = 0;
 };
 
 #endif

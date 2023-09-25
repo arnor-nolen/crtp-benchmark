@@ -9,7 +9,10 @@ class CrtpCounter : public CrtpInterface<CrtpCounter> {
 
     void inc(int n) noexcept { m_counter += n; };
 
-    [[nodiscard]] auto getCounter() const noexcept -> int { return m_counter; };
+    [[nodiscard]]
+    auto getCounter() const noexcept -> int {
+        return m_counter;
+    };
 
   private:
     int m_counter{0};

@@ -9,7 +9,8 @@ class PolyCounter : public PolyInterface {
 
     void inc(int n) noexcept override { m_counter += n; };
 
-    [[nodiscard]] auto getCounter() const noexcept -> int override {
+    [[nodiscard]]
+    auto getCounter() const noexcept -> int override {
         return m_counter;
     };
 
