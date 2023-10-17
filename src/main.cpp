@@ -4,12 +4,13 @@
 #include <memory>
 #include <variant>
 
+#include <concept_counter.hpp>
 #include <crtp_counter.hpp>
 #include <lambda_counter.hpp>
 #include <poly_counter.hpp>
 
 namespace {
-constexpr size_t number_of_loops = 40000;
+constexpr size_t number_of_loops = 100000;
 } // namespace
 
 void test(PolyInterface *counter) {
@@ -39,6 +40,14 @@ void lambdaTest(std::variant<LambdaCounter> *counter) {
                 *counter);
         }
     }
+}
+
+void conceptTest(ConceptInterface auto *counter) {
+    for (auto i = 0u; i < number_of_loops; ++i) {
+        for (auto j = 0u; j < i; ++j) {
+            counter->inc(static_cast<int>(j));
+        }
+    };
 }
 
 template <typename T, typename F>
@@ -73,6 +82,10 @@ auto main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) -> int {
         std::visit(
             [](const auto &counterImpl) { return counterImpl.getCounter(); },
             *lambdaCounter));
+
+    auto conceptCounter = std::make_unique<ConceptCounter>(0);
+    benchmark(conceptCounter, conceptTest<ConceptCounter>, "Concepts");
+    fmt::print("Counter value: {}.\n\n", conceptCounter->getCounter());
 
     return EXIT_SUCCESS;
 }
